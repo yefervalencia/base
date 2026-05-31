@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <link
+      rel="stylesheet"
+      href="../jacoco-resources/report.css"
+      type="text/css"
+    />
+    <link
+      rel="shortcut icon"
+      href="../jacoco-resources/report.gif"
+      type="image/gif"
+    />
+    <title>BaseHandler.java</title>
+    <link
+      rel="stylesheet"
+      href="../jacoco-resources/prettify.css"
+      type="text/css"
+    />
+    <script
+      type="text/javascript"
+      src="../jacoco-resources/prettify.js"
+    ></script>
+  </head>
+  <body
+    onload="
+      window['PR_TAB_WIDTH'] = 4;
+      prettyPrint();
+    "
+  >
+    <div class="breadcrumb" id="breadcrumb">
+      <span class="info"
+        ><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span
+      ><a href="../index.html" class="el_report">proyecto-base</a> &gt;
+      <a href="index.source.html" class="el_package">co.com.base.api</a> &gt;
+      <span class="el_source">BaseHandler.java</span>
+    </div>
+    <h1>BaseHandler.java</h1>
+    <pre class="source lang-java linenums">package co.com.base.api;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
+
+/**
+ * Clase base para todos los handlers de API del proyecto.
+ * Proporciona métodos comunes para respuestas HTTP estandarizadas.
+ */
+<span class="fc" id="L12">public abstract class BaseHandler {</span>
+    
+    /**
+     * Crea una respuesta de éxito con datos
+     * @param data Datos a retornar
+     * @return Mono con respuesta 200 OK
+     */
+    protected Mono&lt;ServerResponse&gt; handleSuccess(Object data) {
+<span class="fc" id="L20">        return ServerResponse</span>
+<span class="fc" id="L21">                .ok()</span>
+<span class="fc" id="L22">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L23">                .bodyValue(data);</span>
+    }
+    
+    /**
+     * Crea una respuesta 201 Created
+     * @param data Datos creados
+     * @return Mono con respuesta 201 Created
+     */
+    protected Mono&lt;ServerResponse&gt; handleCreated(Object data) {
+<span class="fc" id="L32">        return ServerResponse</span>
+<span class="fc" id="L33">                .status(HttpStatus.CREATED)</span>
+<span class="fc" id="L34">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L35">                .bodyValue(data);</span>
+    }
+    
+    /**
+     * Crea una respuesta 204 No Content
+     * @return Mono con respuesta vacía
+     */
+    protected Mono&lt;ServerResponse&gt; handleNoContent() {
+<span class="fc" id="L43">        return ServerResponse.noContent().build();</span>
+    }
+    
+    /**
+     * Maneja errores de validación (400 Bad Request)
+     * @param message Mensaje de error
+     * @return Mono con respuesta de error
+     */
+    protected Mono&lt;ServerResponse&gt; handleBadRequest(String message) {
+<span class="fc" id="L52">        return handleError(HttpStatus.BAD_REQUEST, message);</span>
+    }
+    
+    /**
+     * Maneja errores de no encontrado (404 Not Found)
+     * @param message Mensaje de error
+     * @return Mono con respuesta de error
+     */
+    protected Mono&lt;ServerResponse&gt; handleNotFound(String message) {
+<span class="nc" id="L61">        return handleError(HttpStatus.NOT_FOUND, message);</span>
+    }
+    
+    /**
+     * Maneja errores internos (500 Internal Server Error)
+     * @param error Excepción ocurrida
+     * @return Mono con respuesta de error
+     */
+    protected Mono&lt;ServerResponse&gt; handleInternalError(Throwable error) {
+<span class="nc" id="L70">        return handleError(HttpStatus.INTERNAL_SERVER_ERROR, </span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">                error.getMessage() != null ? error.getMessage() : &quot;Error interno del servidor&quot;);</span>
+    }
+    
+    /**
+     * Método genérico para manejar errores
+     * @param status Estado HTTP
+     * @param message Mensaje de error
+     * @return Mono con respuesta de error
+     */
+    private Mono&lt;ServerResponse&gt; handleError(HttpStatus status, String message) {
+<span class="fc" id="L81">        ErrorResponse errorResponse = new ErrorResponse(status.value(), message);</span>
+<span class="fc" id="L82">        return ServerResponse</span>
+<span class="fc" id="L83">                .status(status)</span>
+<span class="fc" id="L84">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L85">                .bodyValue(errorResponse);</span>
+    }
+    
+    /**
+     * Clase interna para respuestas de error estandarizadas
+     */
+    public static class ErrorResponse {
+        private int status;
+        private String message;
+        
+<span class="fc" id="L95">        public ErrorResponse(int status, String message) {</span>
+<span class="fc" id="L96">            this.status = status;</span>
+<span class="fc" id="L97">            this.message = message;</span>
+<span class="fc" id="L98">        }</span>
+        
+        public int getStatus() {
+<span class="fc" id="L101">            return status;</span>
+        }
+        
+        public void setStatus(int status) {
+<span class="nc" id="L105">            this.status = status;</span>
+<span class="nc" id="L106">        }</span>
+        
+        public String getMessage() {
+<span class="fc" id="L109">            return message;</span>
+        }
+        
+        public void setMessage(String message) {
+<span class="nc" id="L113">            this.message = message;</span>
+<span class="nc" id="L114">        }</span>
+    }
+}
+</pre>
+    <div class="footer">
+      <span class="right"
+        >Created with
+        <a href="http://www.jacoco.org/jacoco">JaCoCo</a>
+        0.8.10.202304240956</span
+      >
+    </div>
+  </body>
+</html>

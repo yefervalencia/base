@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE report PUBLIC "-//JACOCO//DTD Report 1.1//EN" "report.dtd">
+<report name="proyecto-base">
+  <sessioninfo id="Jeissons-MacBook-Pro.local-662e671d" start="1775776854343" dump="1775776857357" />
+  <sessioninfo id="Jeissons-MacBook-Pro.local-902a1aca" start="1775776854346" dump="1775776858517" />
+  <sessioninfo id="Jeissons-MacBook-Pro.local-9f52af85" start="1775776854373" dump="1775776858921" />
+  <sessioninfo id="Jeissons-MacBook-Pro.local-cb5cd882" start="1775776854397" dump="1775776862251" />
+  <package name="co/com/base/model/gateways">
+    <class name="co/com/base/model/gateways/BaseGateway" sourcefilename="BaseGateway.java" />
+    <sourcefile name="BaseGateway.java" />
+  </package>
+  <package name="co/com/base/mongo/Config">
+    <class name="co/com/base/mongo/Config/ReactiveMongoConfig"
+      sourcefilename="ReactiveMongoConfig.java">
+      <method name="&lt;init&gt;" desc="()V" line="8">
+        <counter type="INSTRUCTION" missed="0" covered="3" />
+        <counter type="LINE" missed="0" covered="1" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <counter type="INSTRUCTION" missed="0" covered="3" />
+      <counter type="LINE" missed="0" covered="1" />
+      <counter type="COMPLEXITY" missed="0" covered="1" />
+      <counter type="METHOD" missed="0" covered="1" />
+      <counter type="CLASS" missed="0" covered="1" />
+    </class>
+    <sourcefile name="ReactiveMongoConfig.java">
+      <line nr="8" mi="0" ci="3" mb="0" cb="0" />
+      <counter type="INSTRUCTION" missed="0" covered="3" />
+      <counter type="LINE" missed="0" covered="1" />
+      <counter type="COMPLEXITY" missed="0" covered="1" />
+      <counter type="METHOD" missed="0" covered="1" />
+      <counter type="CLASS" missed="0" covered="1" />
+    </sourcefile>
+    <counter type="INSTRUCTION" missed="0" covered="3" />
+    <counter type="LINE" missed="0" covered="1" />
+    <counter type="COMPLEXITY" missed="0" covered="1" />
+    <counter type="METHOD" missed="0" covered="1" />
+    <counter type="CLASS" missed="0" covered="1" />
+  </package>
+  <package name="co/com/base/appservice">
+    <class name="co/com/base/appservice/AppServiceApplication"
+      sourcefilename="AppServiceApplication.java">
+      <method name="&lt;init&gt;" desc="()V" line="9">
+        <counter type="INSTRUCTION" missed="0" covered="3" />
+        <counter type="LINE" missed="0" covered="1" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="main" desc="([Ljava/lang/String;)V" line="12">
+        <counter type="INSTRUCTION" missed="5" covered="0" />
+        <counter type="LINE" missed="2" covered="0" />
+        <counter type="COMPLEXITY" missed="1" covered="0" />
+        <counter type="METHOD" missed="1" covered="0" />
+      </method>
+      <counter type="INSTRUCTION" missed="5" covered="3" />
+      <counter type="LINE" missed="2" covered="1" />
+      <counter type="COMPLEXITY" missed="1" covered="1" />
+      <counter type="METHOD" missed="1" covered="1" />
+      <counter type="CLASS" missed="0" covered="1" />
+    </class>
+    <sourcefile name="AppServiceApplication.java">
+      <line nr="9" mi="0" ci="3" mb="0" cb="0" />
+      <line nr="12" mi="4" ci="0" mb="0" cb="0" />
+      <line nr="13" mi="1" ci="0" mb="0" cb="0" />
+      <counter type="INSTRUCTION" missed="5" covered="3" />
+      <counter type="LINE" missed="2" covered="1" />
+      <counter type="COMPLEXITY" missed="1" covered="1" />
+      <counter type="METHOD" missed="1" covered="1" />
+      <counter type="CLASS" missed="0" covered="1" />
+    </sourcefile>
+    <counter type="INSTRUCTION" missed="5" covered="3" />
+    <counter type="LINE" missed="2" covered="1" />
+    <counter type="COMPLEXITY" missed="1" covered="1" />
+    <counter type="METHOD" missed="1" covered="1" />
+    <counter type="CLASS" missed="0" covered="1" />
+  </package>
+  <package name="co/com/base/usecase">
+    <class name="co/com/base/usecase/BaseUseCase" sourcefilename="BaseUseCase.java">
+      <method name="&lt;init&gt;" desc="()V" line="15">
+        <counter type="INSTRUCTION" missed="0" covered="3" />
+        <counter type="LINE" missed="0" covered="2" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="validateNotNull" desc="(Ljava/lang/Object;Ljava/lang/String;)V" line="26">
+        <counter type="INSTRUCTION" missed="0" covered="8" />
+        <counter type="BRANCH" missed="0" covered="2" />
+        <counter type="LINE" missed="0" covered="3" />
+        <counter type="COMPLEXITY" missed="0" covered="2" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="validateNotEmpty" desc="(Ljava/lang/String;Ljava/lang/String;)V" line="38">
+        <counter type="INSTRUCTION" missed="0" covered="12" />
+        <counter type="BRANCH" missed="0" covered="4" />
+        <counter type="LINE" missed="0" covered="3" />
+        <counter type="COMPLEXITY" missed="0" covered="3" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="validate" desc="(ZLjava/lang/String;)V" line="50">
+        <counter type="INSTRUCTION" missed="0" covered="8" />
+        <counter type="BRANCH" missed="0" covered="2" />
+        <counter type="LINE" missed="0" covered="3" />
+        <counter type="COMPLEXITY" missed="0" covered="2" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <counter type="INSTRUCTION" missed="0" covered="31" />
+      <counter type="BRANCH" missed="0" covered="8" />
+      <counter type="LINE" missed="0" covered="11" />
+      <counter type="COMPLEXITY" missed="0" covered="8" />
+      <counter type="METHOD" missed="0" covered="4" />
+      <counter type="CLASS" missed="0" covered="1" />
+    </class>
+    <sourcefile name="BaseUseCase.java">
+      <line nr="15" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="17" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="26" mi="0" ci="2" mb="0" cb="2" />
+      <line nr="27" mi="0" ci="5" mb="0" cb="0" />
+      <line nr="29" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="38" mi="0" ci="6" mb="0" cb="4" />
+      <line nr="39" mi="0" ci="5" mb="0" cb="0" />
+      <line nr="41" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="50" mi="0" ci="2" mb="0" cb="2" />
+      <line nr="51" mi="0" ci="5" mb="0" cb="0" />
+      <line nr="53" mi="0" ci="1" mb="0" cb="0" />
+      <counter type="INSTRUCTION" missed="0" covered="31" />
+      <counter type="BRANCH" missed="0" covered="8" />
+      <counter type="LINE" missed="0" covered="11" />
+      <counter type="COMPLEXITY" missed="0" covered="8" />
+      <counter type="METHOD" missed="0" covered="4" />
+      <counter type="CLASS" missed="0" covered="1" />
+    </sourcefile>
+    <counter type="INSTRUCTION" missed="0" covered="31" />
+    <counter type="BRANCH" missed="0" covered="8" />
+    <counter type="LINE" missed="0" covered="11" />
+    <counter type="COMPLEXITY" missed="0" covered="8" />
+    <counter type="METHOD" missed="0" covered="4" />
+    <counter type="CLASS" missed="0" covered="1" />
+  </package>
+  <package name="co/com/base/mongo">
+    <class name="co/com/base/mongo/BaseMongoGatewayImpl" sourcefilename="BaseMongoGatewayImpl.java">
+      <method name="&lt;init&gt;"
+        desc="(Lorg/springframework/data/mongodb/repository/ReactiveMongoRepository;)V" line="23">
+        <counter type="INSTRUCTION" missed="0" covered="6" />
+        <counter type="LINE" missed="0" covered="3" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="save" desc="(Ljava/lang/Object;)Lreactor/core/publisher/Mono;" line="39">
+        <counter type="INSTRUCTION" missed="0" covered="12" />
+        <counter type="LINE" missed="0" covered="3" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="findById" desc="(Ljava/lang/String;)Lreactor/core/publisher/Mono;" line="46">
+        <counter type="INSTRUCTION" missed="0" covered="8" />
+        <counter type="LINE" missed="0" covered="2" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="update" desc="(Ljava/lang/Object;)Lreactor/core/publisher/Mono;" line="52">
+        <counter type="INSTRUCTION" missed="4" covered="0" />
+        <counter type="LINE" missed="1" covered="0" />
+        <counter type="COMPLEXITY" missed="1" covered="0" />
+        <counter type="METHOD" missed="1" covered="0" />
+      </method>
+      <method name="deleteById" desc="(Ljava/lang/String;)Lreactor/core/publisher/Mono;" line="57">
+        <counter type="INSTRUCTION" missed="0" covered="5" />
+        <counter type="LINE" missed="0" covered="1" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <counter type="INSTRUCTION" missed="4" covered="31" />
+      <counter type="LINE" missed="1" covered="9" />
+      <counter type="COMPLEXITY" missed="1" covered="4" />
+      <counter type="METHOD" missed="1" covered="4" />
+      <counter type="CLASS" missed="0" covered="1" />
+    </class>
+    <sourcefile name="BaseMongoGatewayImpl.java">
+      <line nr="23" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="24" mi="0" ci="3" mb="0" cb="0" />
+      <line nr="25" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="39" mi="0" ci="4" mb="0" cb="0" />
+      <line nr="40" mi="0" ci="7" mb="0" cb="0" />
+      <line nr="41" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="46" mi="0" ci="7" mb="0" cb="0" />
+      <line nr="47" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="52" mi="4" ci="0" mb="0" cb="0" />
+      <line nr="57" mi="0" ci="5" mb="0" cb="0" />
+      <counter type="INSTRUCTION" missed="4" covered="31" />
+      <counter type="LINE" missed="1" covered="9" />
+      <counter type="COMPLEXITY" missed="1" covered="4" />
+      <counter type="METHOD" missed="1" covered="4" />
+      <counter type="CLASS" missed="0" covered="1" />
+    </sourcefile>
+    <counter type="INSTRUCTION" missed="4" covered="31" />
+    <counter type="LINE" missed="1" covered="9" />
+    <counter type="COMPLEXITY" missed="1" covered="4" />
+    <counter type="METHOD" missed="1" covered="4" />
+    <counter type="CLASS" missed="0" covered="1" />
+  </package>
+  <package name="co/com/base/api">
+    <class name="co/com/base/api/BaseHandler" sourcefilename="BaseHandler.java">
+      <method name="&lt;init&gt;" desc="()V" line="12">
+        <counter type="INSTRUCTION" missed="0" covered="3" />
+        <counter type="LINE" missed="0" covered="1" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="handleSuccess" desc="(Ljava/lang/Object;)Lreactor/core/publisher/Mono;"
+        line="20">
+        <counter type="INSTRUCTION" missed="0" covered="6" />
+        <counter type="LINE" missed="0" covered="4" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="handleCreated" desc="(Ljava/lang/Object;)Lreactor/core/publisher/Mono;"
+        line="32">
+        <counter type="INSTRUCTION" missed="0" covered="7" />
+        <counter type="LINE" missed="0" covered="4" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="handleNoContent" desc="()Lreactor/core/publisher/Mono;" line="43">
+        <counter type="INSTRUCTION" missed="0" covered="3" />
+        <counter type="LINE" missed="0" covered="1" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="handleBadRequest" desc="(Ljava/lang/String;)Lreactor/core/publisher/Mono;"
+        line="52">
+        <counter type="INSTRUCTION" missed="0" covered="5" />
+        <counter type="LINE" missed="0" covered="1" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="handleNotFound" desc="(Ljava/lang/String;)Lreactor/core/publisher/Mono;"
+        line="61">
+        <counter type="INSTRUCTION" missed="5" covered="0" />
+        <counter type="LINE" missed="1" covered="0" />
+        <counter type="COMPLEXITY" missed="1" covered="0" />
+        <counter type="METHOD" missed="1" covered="0" />
+      </method>
+      <method name="handleInternalError" desc="(Ljava/lang/Throwable;)Lreactor/core/publisher/Mono;"
+        line="70">
+        <counter type="INSTRUCTION" missed="11" covered="0" />
+        <counter type="BRANCH" missed="2" covered="0" />
+        <counter type="LINE" missed="2" covered="0" />
+        <counter type="COMPLEXITY" missed="2" covered="0" />
+        <counter type="METHOD" missed="1" covered="0" />
+      </method>
+      <method name="handleError"
+        desc="(Lorg/springframework/http/HttpStatus;Ljava/lang/String;)Lreactor/core/publisher/Mono;"
+        line="81">
+        <counter type="INSTRUCTION" missed="0" covered="14" />
+        <counter type="LINE" missed="0" covered="5" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <counter type="INSTRUCTION" missed="16" covered="38" />
+      <counter type="BRANCH" missed="2" covered="0" />
+      <counter type="LINE" missed="3" covered="16" />
+      <counter type="COMPLEXITY" missed="3" covered="6" />
+      <counter type="METHOD" missed="2" covered="6" />
+      <counter type="CLASS" missed="0" covered="1" />
+    </class>
+    <class name="co/com/base/api/BaseHandler$ErrorResponse" sourcefilename="BaseHandler.java">
+      <method name="&lt;init&gt;" desc="(ILjava/lang/String;)V" line="95">
+        <counter type="INSTRUCTION" missed="0" covered="9" />
+        <counter type="LINE" missed="0" covered="4" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="getStatus" desc="()I" line="101">
+        <counter type="INSTRUCTION" missed="0" covered="3" />
+        <counter type="LINE" missed="0" covered="1" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="setStatus" desc="(I)V" line="105">
+        <counter type="INSTRUCTION" missed="4" covered="0" />
+        <counter type="LINE" missed="2" covered="0" />
+        <counter type="COMPLEXITY" missed="1" covered="0" />
+        <counter type="METHOD" missed="1" covered="0" />
+      </method>
+      <method name="getMessage" desc="()Ljava/lang/String;" line="109">
+        <counter type="INSTRUCTION" missed="0" covered="3" />
+        <counter type="LINE" missed="0" covered="1" />
+        <counter type="COMPLEXITY" missed="0" covered="1" />
+        <counter type="METHOD" missed="0" covered="1" />
+      </method>
+      <method name="setMessage" desc="(Ljava/lang/String;)V" line="113">
+        <counter type="INSTRUCTION" missed="4" covered="0" />
+        <counter type="LINE" missed="2" covered="0" />
+        <counter type="COMPLEXITY" missed="1" covered="0" />
+        <counter type="METHOD" missed="1" covered="0" />
+      </method>
+      <counter type="INSTRUCTION" missed="8" covered="15" />
+      <counter type="LINE" missed="4" covered="6" />
+      <counter type="COMPLEXITY" missed="2" covered="3" />
+      <counter type="METHOD" missed="2" covered="3" />
+      <counter type="CLASS" missed="0" covered="1" />
+    </class>
+    <sourcefile name="BaseHandler.java">
+      <line nr="12" mi="0" ci="3" mb="0" cb="0" />
+      <line nr="20" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="21" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="22" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="23" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="32" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="33" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="34" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="35" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="43" mi="0" ci="3" mb="0" cb="0" />
+      <line nr="52" mi="0" ci="5" mb="0" cb="0" />
+      <line nr="61" mi="5" ci="0" mb="0" cb="0" />
+      <line nr="70" mi="4" ci="0" mb="0" cb="0" />
+      <line nr="71" mi="7" ci="0" mb="2" cb="0" />
+      <line nr="81" mi="0" ci="7" mb="0" cb="0" />
+      <line nr="82" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="83" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="84" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="85" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="95" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="96" mi="0" ci="3" mb="0" cb="0" />
+      <line nr="97" mi="0" ci="3" mb="0" cb="0" />
+      <line nr="98" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="101" mi="0" ci="3" mb="0" cb="0" />
+      <line nr="105" mi="3" ci="0" mb="0" cb="0" />
+      <line nr="106" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="109" mi="0" ci="3" mb="0" cb="0" />
+      <line nr="113" mi="3" ci="0" mb="0" cb="0" />
+      <line nr="114" mi="1" ci="0" mb="0" cb="0" />
+      <counter type="INSTRUCTION" missed="24" covered="53" />
+      <counter type="BRANCH" missed="2" covered="0" />
+      <counter type="LINE" missed="7" covered="22" />
+      <counter type="COMPLEXITY" missed="5" covered="9" />
+      <counter type="METHOD" missed="4" covered="9" />
+      <counter type="CLASS" missed="0" covered="2" />
+    </sourcefile>
+    <counter type="INSTRUCTION" missed="24" covered="53" />
+    <counter type="BRANCH" missed="2" covered="0" />
+    <counter type="LINE" missed="7" covered="22" />
+    <counter type="COMPLEXITY" missed="5" covered="9" />
+    <counter type="METHOD" missed="4" covered="9" />
+    <counter type="CLASS" missed="0" covered="2" />
+  </package>
+  <package name="co/com/base/mongo/Collections">
+    <class name="co/com/base/mongo/Collections/HistorialCollections"
+      sourcefilename="HistorialCollections.java">
+      <method name="&lt;init&gt;" desc="()V" line="19">
+        <counter type="INSTRUCTION" missed="3" covered="0" />
+        <counter type="LINE" missed="1" covered="0" />
+        <counter type="COMPLEXITY" missed="1" covered="0" />
+        <counter type="METHOD" missed="1" covered="0" />
+      </method>
+      <counter type="INSTRUCTION" missed="3" covered="0" />
+      <counter type="LINE" missed="1" covered="0" />
+      <counter type="COMPLEXITY" missed="1" covered="0" />
+      <counter type="METHOD" missed="1" covered="0" />
+      <counter type="CLASS" missed="1" covered="0" />
+    </class>
+    <class name="co/com/base/mongo/Collections/PlantillaCollections"
+      sourcefilename="PlantillaCollections.java" />
+    <sourcefile name="PlantillaCollections.java" />
+    <sourcefile name="HistorialCollections.java">
+      <line nr="19" mi="3" ci="0" mb="0" cb="0" />
+      <counter type="INSTRUCTION" missed="3" covered="0" />
+      <counter type="LINE" missed="1" covered="0" />
+      <counter type="COMPLEXITY" missed="1" covered="0" />
+      <counter type="METHOD" missed="1" covered="0" />
+      <counter type="CLASS" missed="1" covered="0" />
+    </sourcefile>
+    <counter type="INSTRUCTION" missed="3" covered="0" />
+    <counter type="LINE" missed="1" covered="0" />
+    <counter type="COMPLEXITY" missed="1" covered="0" />
+    <counter type="METHOD" missed="1" covered="0" />
+    <counter type="CLASS" missed="1" covered="0" />
+  </package>
+  <counter type="INSTRUCTION" missed="36" covered="121" />
+  <counter type="BRANCH" missed="2" covered="8" />
+  <counter type="LINE" missed="11" covered="44" />
+  <counter type="COMPLEXITY" missed="8" covered="23" />
+  <counter type="METHOD" missed="7" covered="19" />
+  <counter type="CLASS" missed="1" covered="6" />
+</report>

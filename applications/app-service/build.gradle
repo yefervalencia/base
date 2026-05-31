@@ -1,0 +1,33 @@
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+
+dependencies {
+
+	testImplementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation project( ':mongo-repository')
+	implementation project( ':reactive-web')
+
+    implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
+    implementation ("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+    implementation 'org.springframework.boot:spring-boot-starter-json'
+
+    testImplementation 'com.tngtech.archunit:archunit:1.2.1'
+    runtimeOnly("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
+}
+
+tasks.register('explodedJar', Copy) {
+    with jar
+    into "${buildDir}/exploded"
+}
+
+jar {
+    // To disable the *-plain.jar
+    enabled = false
+}
+
+bootJar {
+    // Sets output jar name
+    archiveFileName = "${project.getParent().getName()}.${archiveExtension.get()}"
+}
+
