@@ -2,8 +2,6 @@ package co.com.store.usecase;
 
 import org.junit.jupiter.api.Test;
 
-import co.com.store.usecase.BaseUseCase;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

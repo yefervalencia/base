@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StoreHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reactive-web</a> &gt; <a href="index.source.html" class="el_package">co.com.store.api.handlers</a> &gt; <span class="el_source">StoreHandler.java</span></div><h1>StoreHandler.java</h1><pre class="source lang-java linenums">package co.com.store.api.handlers;
+
+import co.com.store.api.BaseHandler;
+import co.com.store.model.Store;
+import co.com.store.usecase.StoreUseCase;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
+
+@Component
+public class StoreHandler extends BaseHandler {
+
+    private final StoreUseCase storeUseCase;
+
+<span class="nc" id="L16">    public StoreHandler(StoreUseCase storeUseCase) {</span>
+<span class="nc" id="L17">        this.storeUseCase = storeUseCase;</span>
+<span class="nc" id="L18">    }</span>
+
+    public Mono&lt;ServerResponse&gt; getAll(ServerRequest request) {
+<span class="nc" id="L21">        return storeUseCase.getAllStores()</span>
+<span class="nc" id="L22">                .collectList()</span>
+<span class="nc" id="L23">                .flatMap(this::handleSuccess)</span>
+<span class="nc" id="L24">                .onErrorResume(this::handleInternalError);</span>
+    }
+
+    public Mono&lt;ServerResponse&gt; getById(ServerRequest request) {
+<span class="nc" id="L28">        String id = request.pathVariable(&quot;id&quot;);</span>
+<span class="nc" id="L29">        return storeUseCase.getStoreById(id)</span>
+<span class="nc" id="L30">                .flatMap(this::handleSuccess)</span>
+<span class="nc" id="L31">                .onErrorResume(e -&gt; handleBadRequest(e.getMessage()));</span>
+    }
+
+    public Mono&lt;ServerResponse&gt; create(ServerRequest request) {
+<span class="nc" id="L35">        return request.bodyToMono(Store.class)</span>
+<span class="nc" id="L36">                .flatMap(storeUseCase::createStore)</span>
+<span class="nc" id="L37">                .flatMap(this::handleCreated)</span>
+<span class="nc" id="L38">                .onErrorResume(e -&gt; handleBadRequest(e.getMessage()));</span>
+    }
+
+    public Mono&lt;ServerResponse&gt; update(ServerRequest request) {
+<span class="nc" id="L42">        String id = request.pathVariable(&quot;id&quot;);</span>
+<span class="nc" id="L43">        return request.bodyToMono(Store.class)</span>
+<span class="nc" id="L44">                .flatMap(store -&gt; storeUseCase.updateStore(id, store))</span>
+<span class="nc" id="L45">                .flatMap(this::handleSuccess)</span>
+<span class="nc" id="L46">                .onErrorResume(e -&gt; handleBadRequest(e.getMessage()));</span>
+    }
+
+    public Mono&lt;ServerResponse&gt; delete(ServerRequest request) {
+<span class="nc" id="L50">        String id = request.pathVariable(&quot;id&quot;);</span>
+<span class="nc" id="L51">        return storeUseCase.deleteStore(id)</span>
+<span class="nc" id="L52">                .then(handleNoContent())</span>
+<span class="nc" id="L53">                .onErrorResume(e -&gt; handleBadRequest(e.getMessage()));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
