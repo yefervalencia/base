@@ -1,9 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="co.com.store.appservice.ArchitectureRulesTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-01T01:18:52" hostname="DESKTOP-E6HKBJ8" time="13.76">
+<testsuite name="co.com.store.appservice.ArchitectureRulesTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-01T06:09:55" hostname="DESKTOP-E6HKBJ8" time="16.199">
   <properties/>
-  <testcase name="mongoShouldNotDependOnUseCaseLayer()" classname="co.com.store.appservice.ArchitectureRulesTest" time="1.136"/>
-  <testcase name="apiShouldNotDependDirectlyOnMongoLayer()" classname="co.com.store.appservice.ArchitectureRulesTest" time="0.032"/>
-  <system-out><![CDATA[2026-05-31T20:18:22.408-05:00  INFO 12976 --- [proyecto-base] [    Test worker] com.tngtech.archunit.core.PluginLoader   : Detected Java version 17.0.12
+  <testcase name="mongoShouldNotDependOnUseCaseLayer()" classname="co.com.store.appservice.ArchitectureRulesTest" time="1.38"/>
+  <testcase name="apiShouldNotDependDirectlyOnMongoLayer()" classname="co.com.store.appservice.ArchitectureRulesTest" time="0.034"/>
+  <system-out><![CDATA[2026-06-01T01:09:24.110-05:00  INFO 13084 --- [store-db] [    Test worker] com.tngtech.archunit.core.PluginLoader   : Detected Java version 17.0.12
+2026-06-01T01:09:37.262-05:00  WARN 13084 --- [store-db] [ntLoopGroup-2-2] i.n.c.AbstractChannelHandlerContext      : An exception 'reactor.blockhound.BlockingOperationError: Blocking call! jdk.internal.misc.Unsafe#park' [enable DEBUG level for full stacktrace] was thrown by a user handler's exceptionCaught() method while handling the following exception:
+
+reactor.blockhound.BlockingOperationError: Blocking call! jdk.internal.misc.Unsafe#park
+	at java.base/jdk.internal.misc.Unsafe.park(Unsafe.java) ~[na:na]
+	at java.base/java.util.concurrent.locks.LockSupport.park(LockSupport.java:211) ~[na:na]
+	at java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(AbstractQueuedSynchronizer.java:715) ~[na:na]
+	at java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(AbstractQueuedSynchronizer.java:938) ~[na:na]
+	at java.base/java.util.concurrent.locks.ReentrantLock$Sync.lock(ReentrantLock.java:153) ~[na:na]
+	at java.base/java.util.concurrent.locks.ReentrantLock.lock(ReentrantLock.java:322) ~[na:na]
+	at com.mongodb.internal.Locks.checkedWithLock(Locks.java:43) ~[mongodb-driver-core-4.11.1.jar:na]
+	at com.mongodb.internal.Locks.withLock(Locks.java:39) ~[mongodb-driver-core-4.11.1.jar:na]
+	at com.mongodb.connection.netty.NettyStream.handleReadResponse(NettyStream.java:348) ~[mongodb-driver-core-4.11.1.jar:na]
+	at com.mongodb.connection.netty.NettyStream.access$1100(NettyStream.java:112) ~[mongodb-driver-core-4.11.1.jar:na]
+	at com.mongodb.connection.netty.NettyStream$InboundBufferHandler.channelRead0(NettyStream.java:435) ~[mongodb-driver-core-4.11.1.jar:na]
+	at com.mongodb.connection.netty.NettyStream$InboundBufferHandler.channelRead0(NettyStream.java:432) ~[mongodb-driver-core-4.11.1.jar:na]
+	at io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:99) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.107.Final.jar:4.1.107.Final]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

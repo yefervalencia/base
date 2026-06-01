@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CategoryGatewayImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mongo-repository</a> &gt; <a href="index.source.html" class="el_package">co.com.store.mongo.implementations</a> &gt; <span class="el_source">CategoryGatewayImpl.java</span></div><h1>CategoryGatewayImpl.java</h1><pre class="source lang-java linenums">package co.com.store.mongo.implementations;
+
+import co.com.store.model.Category;
+import co.com.store.model.gateways.CategoryGateway;
+import co.com.store.mongo.mappers.CategoryMapper;
+import co.com.store.mongo.repositories.CategoryReactiveRepository;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+@Service
+public class CategoryGatewayImpl implements CategoryGateway {
+
+    private final CategoryReactiveRepository repository;
+    private final CategoryMapper mapper;
+
+<span class="nc" id="L17">    public CategoryGatewayImpl(CategoryReactiveRepository repository, CategoryMapper mapper) {</span>
+<span class="nc" id="L18">        this.repository = repository;</span>
+<span class="nc" id="L19">        this.mapper = mapper;</span>
+<span class="nc" id="L20">    }</span>
+
+    @Override
+    public Mono&lt;Category&gt; save(Category entity) {
+<span class="nc" id="L24">        return repository.save(mapper.toDocument(entity)).map(mapper::toDomain);</span>
+    }
+
+    @Override
+    public Mono&lt;Category&gt; findById(String id) {
+<span class="nc" id="L29">        return repository.findById(id).map(mapper::toDomain);</span>
+    }
+
+    @Override
+    public Mono&lt;Category&gt; update(Category entity) {
+<span class="nc" id="L34">        return save(entity);</span>
+    }
+
+    @Override
+    public Mono&lt;Void&gt; deleteById(String id) {
+<span class="nc" id="L39">        return repository.deleteById(id);</span>
+    }
+
+    @Override
+    public Flux&lt;Category&gt; findAll() {
+<span class="nc" id="L44">        return repository.findAll().map(mapper::toDomain);</span>
+    }
+
+    @Override
+    public Flux&lt;Category&gt; findByNameContainingIgnoreCase(String name) {
+<span class="nc" id="L49">        return repository.findByNameContainingIgnoreCase(name).map(mapper::toDomain);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

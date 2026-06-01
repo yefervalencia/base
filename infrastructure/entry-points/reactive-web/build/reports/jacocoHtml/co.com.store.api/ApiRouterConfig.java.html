@@ -6,10 +6,17 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import co.com.store.api.handlers.CategoryHandler;
+import co.com.store.api.handlers.ProductHandler;
+import co.com.store.api.handlers.StoreHandler;
+import co.com.store.api.routers.CategoryRouter;
+import co.com.store.api.routers.ProductRouter;
+import co.com.store.api.routers.StoreRouter;
+
 import java.util.Map;
 import java.util.Objects;
 
-import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 
 /**
  * ConfiguraciÃ³n de rutas HTTP usando RouterFunction (enfoque funcional de
@@ -25,7 +32,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
  * Los handlers deben ser @Component o @Service.
  */
 @Configuration
-<span class="nc" id="L28">public class ApiRouterConfig {</span>
+public class ApiRouterConfig {
 
     // TODO: Inyectar handlers de negocio aquÃ­ (ej: private final ProductHandler
     // productHandler;)
@@ -35,14 +42,25 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
     // this.productHandler = productHandler;
     // }
 
+    private final CategoryRouter categoryRouter;
+    private final StoreRouter storeRouter;
+    private final ProductRouter productRouter;
+
+<span class="nc" id="L49">    public ApiRouterConfig(CategoryRouter categoryRouter, StoreRouter storeRouter, ProductRouter productRouter) {</span>
+<span class="nc" id="L50">        this.categoryRouter = categoryRouter;</span>
+<span class="nc" id="L51">        this.storeRouter = storeRouter;</span>
+<span class="nc" id="L52">        this.productRouter = productRouter;</span>
+<span class="nc" id="L53">    }</span>
+
     @Bean
     public RouterFunction&lt;ServerResponse&gt; apiRoutes() {
-<span class="nc" id="L40">        return RouterFunctions.route(GET(&quot;/health&quot;), request -&gt; ServerResponse.ok()</span>
-<span class="nc" id="L41">                .bodyValue(Objects.requireNonNull(Map.of(&quot;status&quot;, &quot;UP&quot;))));</span>
-        // Ejemplo de cÃ³mo agregar rutas de negocio:
-        // return RouterFunctions.route(GET(&quot;/health&quot;), ...)
-        // .andRoute(POST(&quot;/products&quot;), productHandler::create)
-        // .andRoute(GET(&quot;/products/{id}&quot;), productHandler::getById);
+<span class="nc" id="L57">        return RouterFunctions.route(GET(&quot;/health&quot;), request -&gt; ServerResponse.ok()</span>
+<span class="nc" id="L58">                .bodyValue(Objects.requireNonNull(Map.of(&quot;status&quot;, &quot;UP&quot;))))</span>
+<span class="nc" id="L59">                .and(RouterFunctions.nest(path(&quot;/apistore/v1&quot;),</span>
+<span class="nc" id="L60">                        categoryRouter.routes()</span>
+<span class="nc" id="L61">                        .and(storeRouter.routes())</span>
+<span class="nc" id="L62">                        .and(productRouter.routes())</span>
+                ));
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

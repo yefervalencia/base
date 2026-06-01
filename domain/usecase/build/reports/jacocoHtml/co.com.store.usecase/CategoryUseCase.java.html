@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CategoryUseCase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">usecase</a> &gt; <a href="index.source.html" class="el_package">co.com.store.usecase</a> &gt; <span class="el_source">CategoryUseCase.java</span></div><h1>CategoryUseCase.java</h1><pre class="source lang-java linenums">package co.com.store.usecase;
+
+import org.springframework.stereotype.Service;
+import co.com.store.model.Category;
+import co.com.store.model.gateways.CategoryGateway;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import java.time.LocalDateTime;
+
+@Service
+public class CategoryUseCase extends BaseUseCase {
+
+  private final CategoryGateway categoryGateway;
+
+  public CategoryUseCase(CategoryGateway categoryGateway) {
+<span class="nc" id="L16">    super();</span>
+<span class="nc" id="L17">    this.categoryGateway = categoryGateway;</span>
+<span class="nc" id="L18">  }</span>
+
+  public Mono&lt;Category&gt; createCategory(Category category) {
+<span class="nc" id="L21">    validateNotNull(category, &quot;La categorÃ­a no puede ser nula&quot;);</span>
+<span class="nc" id="L22">    validateNotEmpty(category.getName(), &quot;El nombre de la categorÃ­a es requerido&quot;);</span>
+<span class="nc" id="L23">    validateNotEmpty(category.getDescription(), &quot;La descripciÃ³n de la categorÃ­a es requerida&quot;);</span>
+
+<span class="nc" id="L25">    LocalDateTime ahora = LocalDateTime.now();</span>
+<span class="nc" id="L26">    category.setCreatedDate(ahora);</span>
+<span class="nc" id="L27">    category.setUpdatedDate(ahora);</span>
+
+<span class="nc" id="L29">    return categoryGateway.save(category);</span>
+  }
+
+  public Mono&lt;Category&gt; updateCategory(String id, Category category) {
+<span class="nc" id="L33">    validateNotEmpty(id, &quot;El ID de la categorÃ­a es requerido para actualizar&quot;);</span>
+<span class="nc" id="L34">    validateNotNull(category, &quot;La categorÃ­a no puede ser nula&quot;);</span>
+<span class="nc" id="L35">    validateNotEmpty(category.getName(), &quot;El nombre de la categorÃ­a es requerido&quot;);</span>
+
+<span class="nc" id="L37">    return categoryGateway.findById(id)</span>
+<span class="nc" id="L38">        .switchIfEmpty(Mono.error(new IllegalArgumentException(&quot;La categorÃ­a con ID &quot; + id + &quot; no existe&quot;)))</span>
+<span class="nc" id="L39">        .flatMap(existingCategory -&gt; {</span>
+<span class="nc" id="L40">          category.setId(existingCategory.getId());</span>
+<span class="nc" id="L41">          category.setCreatedDate(existingCategory.getCreatedDate());</span>
+<span class="nc" id="L42">          category.setUpdatedDate(LocalDateTime.now());</span>
+<span class="nc" id="L43">          return categoryGateway.update(category);</span>
+        });
+  }
+
+  public Mono&lt;Category&gt; getCategoryById(String id) {
+<span class="nc" id="L48">    validateNotEmpty(id, &quot;El ID de bÃºsqueda es requerido&quot;);</span>
+<span class="nc" id="L49">    return categoryGateway.findById(id)</span>
+<span class="nc" id="L50">        .switchIfEmpty(Mono.error(new IllegalArgumentException(&quot;CategorÃ­a no encontrada&quot;)));</span>
+  }
+
+  public Flux&lt;Category&gt; getAllCategories() {
+<span class="nc" id="L54">    return categoryGateway.findAll();</span>
+  }
+
+  public Mono&lt;Void&gt; deleteCategory(String id) {
+<span class="nc" id="L58">    validateNotEmpty(id, &quot;El ID es requerido para eliminar&quot;);</span>
+<span class="nc" id="L59">    return categoryGateway.findById(id)</span>
+<span class="nc" id="L60">        .switchIfEmpty(Mono.error(new IllegalArgumentException(&quot;No se puede eliminar: CategorÃ­a no existe&quot;)))</span>
+<span class="nc" id="L61">        .flatMap(category -&gt; categoryGateway.deleteById(id));</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

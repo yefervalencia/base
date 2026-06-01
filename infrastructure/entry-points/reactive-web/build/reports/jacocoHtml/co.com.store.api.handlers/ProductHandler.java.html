@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reactive-web</a> &gt; <a href="index.source.html" class="el_package">co.com.store.api.handlers</a> &gt; <span class="el_source">ProductHandler.java</span></div><h1>ProductHandler.java</h1><pre class="source lang-java linenums">package co.com.store.api.handlers;
+
+import co.com.store.api.BaseHandler;
+import co.com.store.model.Product;
+import co.com.store.usecase.ProductUseCase;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
+import java.util.Optional;
+
+@Component
+public class ProductHandler extends BaseHandler {
+
+    private final ProductUseCase productUseCase;
+
+<span class="nc" id="L17">    public ProductHandler(ProductUseCase productUseCase) {</span>
+<span class="nc" id="L18">        this.productUseCase = productUseCase;</span>
+<span class="nc" id="L19">    }</span>
+
+    public Mono&lt;ServerResponse&gt; getAll(ServerRequest request) {
+<span class="nc" id="L22">        Optional&lt;String&gt; nameParam = request.queryParam(&quot;name&quot;);</span>
+<span class="nc" id="L23">        Optional&lt;String&gt; storeParam = request.queryParam(&quot;storeId&quot;);</span>
+<span class="nc" id="L24">        Optional&lt;String&gt; categoryParam = request.queryParam(&quot;categoryId&quot;);</span>
+
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        if (nameParam.isPresent()) {</span>
+<span class="nc" id="L27">            return productUseCase.searchProductsByName(nameParam.get())</span>
+<span class="nc" id="L28">                    .collectList().flatMap(this::handleSuccess)</span>
+<span class="nc" id="L29">                    .onErrorResume(this::handleInternalError);</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        } else if (storeParam.isPresent()) {</span>
+<span class="nc" id="L31">            return productUseCase.filterProductsByStore(storeParam.get())</span>
+<span class="nc" id="L32">                    .collectList().flatMap(this::handleSuccess)</span>
+<span class="nc" id="L33">                    .onErrorResume(this::handleInternalError);</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        } else if (categoryParam.isPresent()) {</span>
+<span class="nc" id="L35">            return productUseCase.filterProductsByCategory(categoryParam.get())</span>
+<span class="nc" id="L36">                    .collectList().flatMap(this::handleSuccess)</span>
+<span class="nc" id="L37">                    .onErrorResume(this::handleInternalError);</span>
+        }
+
+<span class="nc" id="L40">        return productUseCase.getAllProducts()</span>
+<span class="nc" id="L41">                .collectList()</span>
+<span class="nc" id="L42">                .flatMap(this::handleSuccess)</span>
+<span class="nc" id="L43">                .onErrorResume(this::handleInternalError);</span>
+    }
+
+    public Mono&lt;ServerResponse&gt; getById(ServerRequest request) {
+<span class="nc" id="L47">        String id = request.pathVariable(&quot;id&quot;);</span>
+<span class="nc" id="L48">        return productUseCase.getProductById(id)</span>
+<span class="nc" id="L49">                .flatMap(this::handleSuccess)</span>
+<span class="nc" id="L50">                .onErrorResume(e -&gt; handleBadRequest(e.getMessage()));</span>
+    }
+
+    public Mono&lt;ServerResponse&gt; create(ServerRequest request) {
+<span class="nc" id="L54">        return request.bodyToMono(Product.class)</span>
+<span class="nc" id="L55">                .flatMap(productUseCase::createProduct)</span>
+<span class="nc" id="L56">                .flatMap(this::handleCreated)</span>
+<span class="nc" id="L57">                .onErrorResume(e -&gt; handleBadRequest(e.getMessage())); // MostrarÃ¡ el error si la tienda no existe</span>
+    }
+
+    public Mono&lt;ServerResponse&gt; update(ServerRequest request) {
+<span class="nc" id="L61">        String id = request.pathVariable(&quot;id&quot;);</span>
+<span class="nc" id="L62">        return request.bodyToMono(Product.class)</span>
+<span class="nc" id="L63">                .flatMap(product -&gt; productUseCase.updateProduct(id, product))</span>
+<span class="nc" id="L64">                .flatMap(this::handleSuccess)</span>
+<span class="nc" id="L65">                .onErrorResume(e -&gt; handleBadRequest(e.getMessage()));</span>
+    }
+
+    public Mono&lt;ServerResponse&gt; delete(ServerRequest request) {
+<span class="nc" id="L69">        String id = request.pathVariable(&quot;id&quot;);</span>
+<span class="nc" id="L70">        return productUseCase.deleteProduct(id)</span>
+<span class="nc" id="L71">                .then(handleNoContent())</span>
+<span class="nc" id="L72">                .onErrorResume(e -&gt; handleBadRequest(e.getMessage()));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

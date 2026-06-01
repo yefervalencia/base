@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductMapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mongo-repository</a> &gt; <a href="index.source.html" class="el_package">co.com.store.mongo.mappers</a> &gt; <span class="el_source">ProductMapper.java</span></div><h1>ProductMapper.java</h1><pre class="source lang-java linenums">package co.com.store.mongo.mappers;
+
+import co.com.store.model.Product;
+import co.com.store.mongo.collections.ProductDocument;
+import org.springframework.stereotype.Component;
+
+@Component
+<span class="nc" id="L8">public class ProductMapper {</span>
+    
+    public Product toDomain(ProductDocument document) {
+<span class="nc bnc" id="L11" title="All 2 branches missed.">        if (document == null) return null;</span>
+<span class="nc" id="L12">        return Product.builder()</span>
+<span class="nc" id="L13">                .id(document.getId())</span>
+<span class="nc" id="L14">                .name(document.getName())</span>
+<span class="nc" id="L15">                .price(document.getPrice())</span>
+<span class="nc" id="L16">                .storeId(document.getStoreId())</span>
+<span class="nc" id="L17">                .storeName(document.getStoreName())</span>
+<span class="nc" id="L18">                .categoryId(document.getCategoryId())</span>
+<span class="nc" id="L19">                .categoryName(document.getCategoryName())</span>
+<span class="nc" id="L20">                .createdDate(document.getCreatedDate())</span>
+<span class="nc" id="L21">                .updatedDate(document.getUpdatedDate())</span>
+<span class="nc" id="L22">                .build();</span>
+    }
+    
+    public ProductDocument toDocument(Product domain) {
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        if (domain == null) return null;</span>
+<span class="nc" id="L27">        return ProductDocument.builder()</span>
+<span class="nc" id="L28">                .id(domain.getId())</span>
+<span class="nc" id="L29">                .name(domain.getName())</span>
+<span class="nc" id="L30">                .price(domain.getPrice())</span>
+<span class="nc" id="L31">                .storeId(domain.getStoreId())</span>
+<span class="nc" id="L32">                .storeName(domain.getStoreName())</span>
+<span class="nc" id="L33">                .categoryId(domain.getCategoryId())</span>
+<span class="nc" id="L34">                .categoryName(domain.getCategoryName())</span>
+<span class="nc" id="L35">                .createdDate(domain.getCreatedDate())</span>
+<span class="nc" id="L36">                .updatedDate(domain.getUpdatedDate())</span>
+<span class="nc" id="L37">                .build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

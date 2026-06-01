@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="co.com.store.api.BaseHandlerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-06-01T01:18:13" hostname="DESKTOP-E6HKBJ8" time="25.908">
+<testsuite name="co.com.store.api.BaseHandlerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-06-01T06:09:02" hostname="DESKTOP-E6HKBJ8" time="24.516">
   <properties/>
-  <testcase name="handleNoContentShouldReturn204()" classname="co.com.store.api.BaseHandlerTest" time="21.52"/>
-  <testcase name="handleBadRequestShouldReturn400WithErrorBody()" classname="co.com.store.api.BaseHandlerTest" time="4.057"/>
-  <testcase name="handleCreatedShouldReturn201WithBody()" classname="co.com.store.api.BaseHandlerTest" time="0.055"/>
-  <testcase name="handleSuccessShouldReturn200WithBody()" classname="co.com.store.api.BaseHandlerTest" time="0.098"/>
+  <testcase name="handleNoContentShouldReturn204()" classname="co.com.store.api.BaseHandlerTest" time="20.16"/>
+  <testcase name="handleBadRequestShouldReturn400WithErrorBody()" classname="co.com.store.api.BaseHandlerTest" time="3.996"/>
+  <testcase name="handleCreatedShouldReturn201WithBody()" classname="co.com.store.api.BaseHandlerTest" time="0.036"/>
+  <testcase name="handleSuccessShouldReturn200WithBody()" classname="co.com.store.api.BaseHandlerTest" time="0.309"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
