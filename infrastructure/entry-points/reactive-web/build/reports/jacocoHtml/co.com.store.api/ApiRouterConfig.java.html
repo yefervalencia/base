@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApiRouterConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reactive-web</a> &gt; <a href="index.source.html" class="el_package">co.com.store.api</a> &gt; <span class="el_source">ApiRouterConfig.java</span></div><h1>ApiRouterConfig.java</h1><pre class="source lang-java linenums">package co.com.store.api;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerResponse;
+
+import java.util.Map;
+import java.util.Objects;
+
+import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+
+/**
+ * ConfiguraciÃ³n de rutas HTTP usando RouterFunction (enfoque funcional de
+ * Spring WebFlux).
+ * 
+ * Cada ruta delega en un Handler, que a su vez invoca el UseCase.
+ * Esta arquitectura preserva la separaciÃ³n de capas:
+ * HTTP Layer (RouterFunction) â†’ API Layer (Handler) â†’ Business Logic (UseCase)
+ * â†’ Data (Gateway)
+ * 
+ * NOTA: Para agregar rutas de negocio, inyecta el handler correspondiente
+ * (ej: ProductHandler) y agrega rutas en el mÃ©todo apiRoutes().
+ * Los handlers deben ser @Component o @Service.
+ */
+@Configuration
+<span class="nc" id="L28">public class ApiRouterConfig {</span>
+
+    // TODO: Inyectar handlers de negocio aquÃ­ (ej: private final ProductHandler
+    // productHandler;)
+    // private final ProductHandler productHandler;
+
+    // public ApiRouterConfig(ProductHandler productHandler) {
+    // this.productHandler = productHandler;
+    // }
+
+    @Bean
+    public RouterFunction&lt;ServerResponse&gt; apiRoutes() {
+<span class="nc" id="L40">        return RouterFunctions.route(GET(&quot;/health&quot;), request -&gt; ServerResponse.ok()</span>
+<span class="nc" id="L41">                .bodyValue(Objects.requireNonNull(Map.of(&quot;status&quot;, &quot;UP&quot;))));</span>
+        // Ejemplo de cÃ³mo agregar rutas de negocio:
+        // return RouterFunctions.route(GET(&quot;/health&quot;), ...)
+        // .andRoute(POST(&quot;/products&quot;), productHandler::create)
+        // .andRoute(GET(&quot;/products/{id}&quot;), productHandler::getById);
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

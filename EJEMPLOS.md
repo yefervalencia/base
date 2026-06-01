@@ -7,7 +7,7 @@ Este archivo contiene ejemplos paso a paso de cómo implementar características
 Crea un archivo en `domain/model/src/main/java/co/com/base/model/`:
 
 ```java
-package co.com.base.model;
+package co.com.store.model;
 
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -28,9 +28,9 @@ public class Product {
 Crea un archivo en `domain/model/src/main/java/co/com/base/model/gateways/`:
 
 ```java
-package co.com.base.model.gateways;
+package co.com.store.model.gateways;
 
-import co.com.base.model.Product;
+import co.com.store.model.Product;
 
 /**
  * Gateway para Product.
@@ -47,7 +47,7 @@ public interface ProductGateway extends BaseGateway<Product, String> {
 Crea un archivo en `infrastructure/driven-adapters/mongo-repository/src/main/java/co/com/base/mongo/Collections/`:
 
 ```java
-package co.com.base.mongo.Collections;
+package co.com.store.mongo.Collections;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -72,10 +72,10 @@ public class ProductDocument {
 Crea un archivo en `infrastructure/driven-adapters/mongo-repository/src/main/java/co/com/base/mongo/Mappers/`:
 
 ```java
-package co.com.base.mongo.Mappers;
+package co.com.store.mongo.Mappers;
 
-import co.com.base.model.Product;
-import co.com.base.mongo.Collections.ProductDocument;
+import co.com.store.model.Product;
+import co.com.store.mongo.Collections.ProductDocument;
 import org.springframework.stereotype.Component;
 
 /**
@@ -83,10 +83,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ProductMapper {
-    
+
     public Product toDomain(ProductDocument document) {
         if (document == null) return null;
-        
+
         Product product = new Product();
         product.setId(document.getId());
         product.setNombre(document.getNombre());
@@ -96,10 +96,10 @@ public class ProductMapper {
         product.setFechaActualizacion(document.getFechaActualizacion());
         return product;
     }
-    
+
     public ProductDocument toDocument(Product product) {
         if (product == null) return null;
-        
+
         ProductDocument document = new ProductDocument();
         document.setId(product.getId());
         document.setNombre(product.getNombre());
@@ -117,9 +117,9 @@ public class ProductMapper {
 Crea un archivo en `infrastructure/driven-adapters/mongo-repository/src/main/java/co/com/base/mongo/Repositories/`:
 
 ```java
-package co.com.base.mongo.Repositories;
+package co.com.store.mongo.Repositories;
 
-import co.com.base.mongo.Collections.ProductDocument;
+import co.com.store.mongo.Collections.ProductDocument;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -139,13 +139,13 @@ public interface ProductReactiveRepository extends ReactiveMongoRepository<Produ
 Crea un archivo en `infrastructure/driven-adapters/mongo-repository/src/main/java/co/com/base/mongo/Implementations/`:
 
 ```java
-package co.com.base.mongo.Implementations;
+package co.com.store.mongo.Implementations;
 
-import co.com.base.model.Product;
-import co.com.base.model.gateways.ProductGateway;
-import co.com.base.mongo.Collections.ProductDocument;
-import co.com.base.mongo.Mappers.ProductMapper;
-import co.com.base.mongo.Repositories.ProductReactiveRepository;
+import co.com.store.model.Product;
+import co.com.store.model.gateways.ProductGateway;
+import co.com.store.mongo.Collections.ProductDocument;
+import co.com.store.mongo.Mappers.ProductMapper;
+import co.com.store.mongo.Repositories.ProductReactiveRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -154,33 +154,33 @@ import reactor.core.publisher.Mono;
  */
 @Service
 public class ProductGatewayImpl implements ProductGateway {
-    
+
     private final ProductReactiveRepository repository;
     private final ProductMapper mapper;
-    
+
     public ProductGatewayImpl(ProductReactiveRepository repository, ProductMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
-    
+
     @Override
     public Mono<Product> save(Product entity) {
         ProductDocument document = mapper.toDocument(entity);
         return repository.save(document)
                 .map(mapper::toDomain);
     }
-    
+
     @Override
     public Mono<Product> findById(String id) {
         return repository.findById(id)
                 .map(mapper::toDomain);
     }
-    
+
     @Override
     public Mono<Product> update(Product entity) {
         return save(entity);
     }
-    
+
     @Override
     public Mono<Void> deleteById(String id) {
         return repository.deleteById(id);
@@ -193,11 +193,11 @@ public class ProductGatewayImpl implements ProductGateway {
 Crea un archivo en `domain/usecase/src/main/java/co/com/base/usecase/product/`:
 
 ```java
-package co.com.base.usecase.product;
+package co.com.store.usecase.product;
 
-import co.com.base.model.Product;
-import co.com.base.model.gateways.ProductGateway;
-import co.com.base.usecase.BaseUseCase;
+import co.com.store.model.Product;
+import co.com.store.model.gateways.ProductGateway;
+import co.com.store.usecase.BaseUseCase;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import java.time.LocalDateTime;
@@ -207,27 +207,27 @@ import java.time.LocalDateTime;
  */
 @Service
 public class CreateProductUseCase extends BaseUseCase {
-    
+
     private final ProductGateway gateway;
-    
+
     public CreateProductUseCase(ProductGateway gateway) {
         super();
         this.gateway = gateway;
     }
-    
+
     public Mono<Product> execute(Product product) {
         // Validaciones
         validateNotNull(product, "El producto no puede ser nulo");
         validateNotEmpty(product.getNombre(), "El nombre del producto es requerido");
         validate(product.getPrecio() > 0, "El precio debe ser mayor a 0");
-        
+
         // Establecer valores por defecto
         LocalDateTime ahora = LocalDateTime.now();
         if (product.getFechaCreacion() == null) {
             product.setFechaCreacion(ahora);
         }
         product.setFechaActualizacion(ahora);
-        
+
         // Guardar usando el gateway
         return gateway.save(product);
     }
@@ -239,11 +239,11 @@ public class CreateProductUseCase extends BaseUseCase {
 Crea un archivo en `infrastructure/entry-points/reactive-web/src/main/java/co/com/base/api/product/`:
 
 ```java
-package co.com.base.api.product;
+package co.com.store.api.product;
 
-import co.com.base.api.BaseHandler;
-import co.com.base.model.Product;
-import co.com.base.usecase.product.CreateProductUseCase;
+import co.com.store.api.BaseHandler;
+import co.com.store.model.Product;
+import co.com.store.usecase.product.CreateProductUseCase;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -254,13 +254,13 @@ import reactor.core.publisher.Mono;
  */
 @Component
 public class ProductHandler extends BaseHandler {
-    
+
     private final CreateProductUseCase createProductUseCase;
-    
+
     public ProductHandler(CreateProductUseCase createProductUseCase) {
         this.createProductUseCase = createProductUseCase;
     }
-    
+
     /**
      * Endpoint POST para crear un producto
      */
@@ -275,7 +275,7 @@ public class ProductHandler extends BaseHandler {
                     return handleInternalError(error);
                 });
     }
-    
+
     /**
      * Endpoint GET para obtener un producto por ID
      */
@@ -292,7 +292,7 @@ public class ProductHandler extends BaseHandler {
 Crea un archivo en `infrastructure/entry-points/reactive-web/src/main/java/co/com/base/api/product/`:
 
 ```java
-package co.com.base.api.product;
+package co.com.store.api.product;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -305,7 +305,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
  */
 @Configuration
 public class ProductRouter {
-    
+
     @Bean
     public RouterFunction<ServerResponse> productRoutes(ProductHandler handler) {
         return RouterFunctions.route()
@@ -344,7 +344,7 @@ El flujo de una solicitud HTTP es:
 
 ## Checklist para Nuevo Proyecto
 
-- [ ] Cambiar paquete de `co.com.base` a tu paquete
+- [ ] Cambiar paquete de `co.com.store` a tu paquete
 - [ ] Crear entidades en `domain/model`
 - [ ] Crear interfaces gateway en `domain/model/gateways`
 - [ ] Crear documentos MongoDB en `infrastructure/driven-adapters/mongo-repository`

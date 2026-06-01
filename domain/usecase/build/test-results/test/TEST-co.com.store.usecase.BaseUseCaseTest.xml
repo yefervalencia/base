@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="co.com.store.usecase.BaseUseCaseTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-06-01T01:19:46" hostname="DESKTOP-E6HKBJ8" time="0.404">
+  <properties/>
+  <testcase name="validateShouldThrowWhenConditionIsFalse()" classname="co.com.store.usecase.BaseUseCaseTest" time="0.293"/>
+  <testcase name="validateNotNullShouldThrowWhenObjectIsNull()" classname="co.com.store.usecase.BaseUseCaseTest" time="0.004"/>
+  <testcase name="validateNotEmptyShouldThrowWhenStringIsNull()" classname="co.com.store.usecase.BaseUseCaseTest" time="0.005"/>
+  <testcase name="validateNotEmptyShouldPassWhenStringHasText()" classname="co.com.store.usecase.BaseUseCaseTest" time="0.015"/>
+  <testcase name="validateNotNullShouldPassWhenObjectExists()" classname="co.com.store.usecase.BaseUseCaseTest" time="0.01"/>
+  <testcase name="validateNotEmptyShouldThrowWhenStringIsBlank()" classname="co.com.store.usecase.BaseUseCaseTest" time="0.008"/>
+  <testcase name="validateShouldPassWhenConditionIsTrue()" classname="co.com.store.usecase.BaseUseCaseTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

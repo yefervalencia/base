@@ -40,6 +40,7 @@ Proyecto base limpio y reutilizable para crear aplicaciones empresariales modern
 Este es el paso más importante para reutilizar el proyecto.
 
 **Opción A: Script automatizado (recomendado)**
+
 ```bash
 # En macOS/Linux
 find . -type f -name "*.java" -exec sed -i '' \
@@ -51,7 +52,8 @@ find . -type f -name "*.java" -exec sed -i \
 ```
 
 **Opción B: Manual**
-1. Editar `gradle.properties`: cambiar `package=co.com.base`
+
+1. Editar `gradle.properties`: cambiar `package=co.com.store`
 2. Reemplazar en todos los archivos `.java` manualmente
 3. Reorganizar directorios
 
@@ -98,14 +100,17 @@ proyecto-base/
 ## 🔧 Clases Base Disponibles
 
 ### BaseGateway<T, ID>
+
 ```java
 // En domain/model/gateways/
 public interface ProductGateway extends BaseGateway<Product, String> {
 }
 ```
+
 Operaciones CRUD automáticas: save, findById, update, deleteById
 
 ### BaseUseCase
+
 ```java
 // En domain/usecase/
 @Service
@@ -118,6 +123,7 @@ public class CreateProductUseCase extends BaseUseCase {
 ```
 
 ### BaseHandler
+
 ```java
 // En infrastructure/entry-points/reactive-web/
 @Component
@@ -157,7 +163,7 @@ logging.level.org.springframework.data.mongodb=DEBUG
 ### gradle.properties
 
 ```properties
-package=co.com.base                # Cambiar a tu paquete
+package=co.com.store                # Cambiar a tu paquete
 reactive=true                      # Habilitar WebFlux
 lombok=true                        # Incluir Lombok
 org.gradle.parallel=true           # Compilación paralela
@@ -198,16 +204,17 @@ HTTP Request → Handler → UseCase → Gateway → Repository → MongoDB
 
 ## 🐛 Solución de Problemas
 
-| Problema | Solución |
-|----------|----------|
-| "package co.com.base does not exist" | Cambiar paquete correctamente (ver SETUP.md) |
-| MongoDB no conecta | Verificar que MongoDB esté ejecutándose |
-| Gradle wrapper error | `gradle wrapper --gradle-version=8.2.1` |
-| Build fail con Lombok | Asegurar `lombok=true` en gradle.properties |
+| Problema                              | Solución                                     |
+| ------------------------------------- | -------------------------------------------- |
+| "package co.com.store does not exist" | Cambiar paquete correctamente (ver SETUP.md) |
+| MongoDB no conecta                    | Verificar que MongoDB esté ejecutándose      |
+| Gradle wrapper error                  | `gradle wrapper --gradle-version=8.2.1`      |
+| Build fail con Lombok                 | Asegurar `lombok=true` en gradle.properties  |
 
 ## 💡 Buenas Prácticas
 
 ✅ **Usa:**
+
 - Extender BaseGateway, BaseUseCase, BaseHandler
 - Tipos reactivos (Mono/Flux)
 - Validaciones en casos de uso
@@ -215,6 +222,7 @@ HTTP Request → Handler → UseCase → Gateway → Repository → MongoDB
 - Inyección de dependencias
 
 ❌ **Evita:**
+
 - Lógica de negocio en handlers
 - Exponer documentos MongoDB directamente
 - I/O bloqueante en reactivo
@@ -228,6 +236,7 @@ HTTP Request → Handler → UseCase → Gateway → Repository → MongoDB
 ---
 
 **📖 Para más información:**
+
 - [SETUP.md](SETUP.md) - Guía de configuración detallada
 - [EJEMPLOS.md](EJEMPLOS.md) - Ejemplos de código completo
 

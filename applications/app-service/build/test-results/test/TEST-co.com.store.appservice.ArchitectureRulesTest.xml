@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="co.com.store.appservice.ArchitectureRulesTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-06-01T01:18:52" hostname="DESKTOP-E6HKBJ8" time="13.76">
+  <properties/>
+  <testcase name="mongoShouldNotDependOnUseCaseLayer()" classname="co.com.store.appservice.ArchitectureRulesTest" time="1.136"/>
+  <testcase name="apiShouldNotDependDirectlyOnMongoLayer()" classname="co.com.store.appservice.ArchitectureRulesTest" time="0.032"/>
+  <system-out><![CDATA[2026-05-31T20:18:22.408-05:00  INFO 12976 --- [proyecto-base] [    Test worker] com.tngtech.archunit.core.PluginLoader   : Detected Java version 17.0.12
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

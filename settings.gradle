@@ -5,7 +5,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'proyecto-base'
+rootProject.name = 'store-api'
 
 include 'app-service'
 include 'model'

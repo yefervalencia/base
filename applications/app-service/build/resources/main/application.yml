@@ -1,9 +1,9 @@
 spring:
   application:
-    name: proyecto-base
+    name: store-api
   data:
     mongodb:
-      uri: mongodb://localhost:27017/proyecto-base
+      uri: mongodb://localhost:27017/store-db
 
 server:
   port: 8081
@@ -11,3 +11,4 @@ server:
 logging:
   level:
     org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+    root: INFO

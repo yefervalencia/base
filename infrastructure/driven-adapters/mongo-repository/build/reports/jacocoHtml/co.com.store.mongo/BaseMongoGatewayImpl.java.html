@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BaseMongoGatewayImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mongo-repository</a> &gt; <a href="index.source.html" class="el_package">co.com.store.mongo</a> &gt; <span class="el_source">BaseMongoGatewayImpl.java</span></div><h1>BaseMongoGatewayImpl.java</h1><pre class="source lang-java linenums">package co.com.store.mongo;
+
+import co.com.store.model.gateways.BaseGateway;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import reactor.core.publisher.Mono;
+
+import java.util.Objects;
+
+/**
+ * EJEMPLO: ImplementaciÃ³n base de un Gateway con MongoDB Reactivo
+ * 
+ * Para implementar tu propio gateway:
+ * 1. Crea una interfaz que extienda ReactiveMongoRepository
+ * 2. Crea una clase @Repository que implemente tu gateway
+ * 3. Inyecta el repositorio y mapea datos entre entidad del modelo y documento
+ * MongoDB
+ * 
+ * @param &lt;T&gt; Entidad del modelo
+ * @param &lt;D&gt; Documento MongoDB
+ * @param &lt;R&gt; Repository reactivo
+ */
+public abstract class BaseMongoGatewayImpl&lt;T, D, R extends ReactiveMongoRepository&lt;D, String&gt;&gt;
+        implements BaseGateway&lt;T, String&gt; {
+
+    protected final R repository;
+
+<span class="fc" id="L27">    public BaseMongoGatewayImpl(R repository) {</span>
+<span class="fc" id="L28">        this.repository = repository;</span>
+<span class="fc" id="L29">    }</span>
+
+    /**
+     * Convierte un documento MongoDB a entidad del modelo
+     */
+    protected abstract T toDomain(D document);
+
+    /**
+     * Convierte una entidad del modelo a documento MongoDB
+     */
+    protected abstract D toDocument(T domain);
+
+    @Override
+    public Mono&lt;T&gt; save(T entity) {
+<span class="fc" id="L43">        D document = Objects.requireNonNull(toDocument(entity));</span>
+<span class="fc" id="L44">        return repository.save(document)</span>
+<span class="fc" id="L45">                .map(this::toDomain);</span>
+    }
+
+    @Override
+    public Mono&lt;T&gt; findById(String id) {
+<span class="fc" id="L50">        return repository.findById(Objects.requireNonNull(id))</span>
+<span class="fc" id="L51">                .map(this::toDomain);</span>
+    }
+
+    @Override
+    public Mono&lt;T&gt; update(T entity) {
+<span class="nc" id="L56">        return save(entity);</span>
+    }
+
+    @Override
+    public Mono&lt;Void&gt; deleteById(String id) {
+<span class="fc" id="L61">        return repository.deleteById(Objects.requireNonNull(id));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

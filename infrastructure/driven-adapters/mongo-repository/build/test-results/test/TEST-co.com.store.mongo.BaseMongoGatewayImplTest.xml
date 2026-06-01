@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="co.com.store.mongo.BaseMongoGatewayImplTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-06-01T01:16:34" hostname="DESKTOP-E6HKBJ8" time="7.369">
+  <properties/>
+  <testcase name="deleteByIdShouldComplete()" classname="co.com.store.mongo.BaseMongoGatewayImplTest" time="7.098"/>
+  <testcase name="findByIdShouldReturnMappedDomain()" classname="co.com.store.mongo.BaseMongoGatewayImplTest" time="0.017"/>
+  <testcase name="saveShouldMapAndReturnDomain()" classname="co.com.store.mongo.BaseMongoGatewayImplTest" time="0.178"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
