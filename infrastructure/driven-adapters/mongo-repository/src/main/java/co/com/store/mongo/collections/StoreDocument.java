@@ -1,4 +1,4 @@
-package co.com.store.mongo.Collections;
+package co.com.store.mongo.collections;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,16 +12,12 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "products")
-public class ProductCollections {
+@Document(collection = "stores")
+public class StoreDocument {
     @Id
     private String id;
     private String name;
-    private Double price;
-    private String storeId; 
-    private String storeName; 
-    private String categoryId;
-    private String categoryName;
+    private String address;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 }

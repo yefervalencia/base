@@ -14,6 +14,6 @@ public class Category {
     private String id;
     private String name;
     private String description;
-    private LocalDateTime cretedDate;
+    private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 }

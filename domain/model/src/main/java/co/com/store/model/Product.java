@@ -22,6 +22,6 @@ public class Product {
     private String categoryId;
     private String categoryName;
     
-    private LocalDateTime cretedDate;
+    private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 }
