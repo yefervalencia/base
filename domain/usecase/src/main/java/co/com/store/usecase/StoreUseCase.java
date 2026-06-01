@@ -2,6 +2,7 @@ package co.com.store.usecase;
 
 import org.springframework.stereotype.Service;
 import co.com.store.model.Store;
+import co.com.store.model.gateways.ProductGateway;
 import co.com.store.model.gateways.StoreGateway;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -11,10 +12,12 @@ import java.time.LocalDateTime;
 public class StoreUseCase extends BaseUseCase {
 
   private final StoreGateway storeGateway;
+  private final ProductGateway productGateway;
 
-  public StoreUseCase(StoreGateway storeGateway) {
+  public StoreUseCase(StoreGateway storeGateway, ProductGateway productGateway) {
     super();
     this.storeGateway = storeGateway;
+    this.productGateway = productGateway;
   }
 
   public Mono<Store> createStore(Store store) {
@@ -58,6 +61,8 @@ public class StoreUseCase extends BaseUseCase {
     validateNotEmpty(id, "El ID es requerido para eliminar");
     return storeGateway.findById(id)
         .switchIfEmpty(Mono.error(new IllegalArgumentException("No se puede eliminar: Tienda no existe")))
-        .flatMap(store -> storeGateway.deleteById(id));
+        .flatMap(store -> 
+        productGateway.deleteByStoreId(id)
+        .then(storeGateway.deleteById(id)));
   }
 }

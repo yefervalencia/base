@@ -3,6 +3,7 @@ package co.com.store.usecase;
 import org.springframework.stereotype.Service;
 import co.com.store.model.Category;
 import co.com.store.model.gateways.CategoryGateway;
+import co.com.store.model.gateways.ProductGateway;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import java.time.LocalDateTime;
@@ -11,10 +12,12 @@ import java.time.LocalDateTime;
 public class CategoryUseCase extends BaseUseCase {
 
   private final CategoryGateway categoryGateway;
+  private final ProductGateway productGateway;
 
-  public CategoryUseCase(CategoryGateway categoryGateway) {
+  public CategoryUseCase(CategoryGateway categoryGateway, ProductGateway productGateway) {
     super();
     this.categoryGateway = categoryGateway;
+    this.productGateway = productGateway;
   }
 
   public Mono<Category> createCategory(Category category) {
@@ -58,6 +61,8 @@ public class CategoryUseCase extends BaseUseCase {
     validateNotEmpty(id, "El ID es requerido para eliminar");
     return categoryGateway.findById(id)
         .switchIfEmpty(Mono.error(new IllegalArgumentException("No se puede eliminar: Categoría no existe")))
-        .flatMap(category -> categoryGateway.deleteById(id));
+        .flatMap(category -> 
+          productGateway.deleteByCategoryId(id)
+          .then(categoryGateway.deleteById(id)));
   }
 }

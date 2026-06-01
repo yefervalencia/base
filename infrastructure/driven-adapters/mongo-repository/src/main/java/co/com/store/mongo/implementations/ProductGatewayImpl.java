@@ -58,4 +58,14 @@ public class ProductGatewayImpl implements ProductGateway {
     public Flux<Product> findByCategoryId(String categoryId) {
         return repository.findByCategoryId(categoryId).map(mapper::toDomain);
     }
+
+    @Override
+    public Mono<Void> deleteByStoreId(String storeId) {
+        return repository.deleteByStoreId(storeId);
+    }
+
+    @Override
+    public Mono<Void> deleteByCategoryId(String categoryId) {
+        return repository.deleteByCategoryId(categoryId);
+    }
 }
