@@ -1,262 +1,111 @@
-# Proyecto Base - Arquitectura Limpia con Spring Boot Reactivo
+# 🏪 Store API - Gestión Reactiva de Tiendas y Productos
 
-Proyecto base limpio y reutilizable para crear aplicaciones empresariales modernas con **Spring Boot**, **WebFlux** (reactivo), **MongoDB** y arquitectura de **Limpieza Hexagonal**.
+¡Bienvenido a **Store API**! Este proyecto es un backend moderno y altamente escalable diseñado para gestionar Tiendas, Productos y Categorías. 
 
-## 📋 Características Principales
-
-- ✅ **Arquitectura Limpia**: Separación clara entre capas de negocio, aplicación e infraestructura
-- ✅ **Reactivo**: Usa Project Reactor (Mono/Flux) para operaciones no bloqueantes
-- ✅ **Modular**: Estructura basada en módulos Gradle independientes
-- ✅ **MongoDB Reactivo**: Soporte completo de bases de datos NoSQL reactivas
-- ✅ **Spring Boot 3.x**: Framework moderno y actualizado
-- ✅ **Lombok**: Generación automática de getters, setters y otros
-- ✅ **Listo para Producción**: Configuración base lista para escalabilidad
-
-## 🚀 Inicio Rápido
-
-### Requisitos
-
-- Java 17 o superior
-- Gradle 8.0+
-- MongoDB 5.0+ (local o remoto)
-
-### Compilar y Ejecutar
-
-```bash
-# Limpiar y compilar
-./gradlew clean build
-
-# Ejecutar la aplicación
-./gradlew bootRun
-
-# Ejecutar tests
-./gradlew test
-```
-
-## 🔑 Pasos Iniciales
-
-### 1. Cambiar el Paquete Base (IMPORTANTE)
-
-Este es el paso más importante para reutilizar el proyecto.
-
-**Opción A: Script automatizado (recomendado)**
-
-```bash
-# En macOS/Linux
-find . -type f -name "*.java" -exec sed -i '' \
-  's/co\.com\.base/co.com.tuempresa.tuproyecto/g' {} \;
-
-# En Linux (sin la 's' después de -i)
-find . -type f -name "*.java" -exec sed -i \
-  's/co\.com\.base/co.com.tuempresa.tuproyecto/g' {} \;
-```
-
-**Opción B: Manual**
-
-1. Editar `gradle.properties`: cambiar `package=co.com.store`
-2. Reemplazar en todos los archivos `.java` manualmente
-3. Reorganizar directorios
-
-Ver [SETUP.md](SETUP.md) para instrucciones detalladas.
-
-### 2. Actualizar Configuraciones
-
-```bash
-# gradle.properties
-package=co.com.tuempresa.tuproyecto
-
-# settings.gradle
-rootProject.name = 'mi-proyecto'
-
-# application.properties
-spring.application.name=mi-proyecto
-spring.data.mongodb.uri=mongodb://localhost:27017/mi-proyecto
-```
-
-## 📚 Documentación Completa
-
-- **[SETUP.md](SETUP.md)** - Guía completa de configuración y estructura del proyecto
-- **[EJEMPLOS.md](EJEMPLOS.md)** - Ejemplos paso a paso de implementación con código real
-
-## 🏗️ Estructura del Proyecto
-
-```
-proyecto-base/
-├── applications/
-│   └── app-service/              # Aplicación principal Spring Boot
-├── domain/                        # Capa de Dominio
-│   ├── model/                    # Entidades y contratos
-│   └── usecase/                  # Casos de uso (lógica de negocio)
-├── infrastructure/               # Capa de Infraestructura
-│   ├── driven-adapters/
-│   │   └── mongo-repository/     # Implementación con MongoDB
-│   └── entry-points/
-│       └── reactive-web/         # Controladores HTTP reactivos
-├── SETUP.md                      # Guía de configuración
-├── EJEMPLOS.md                   # Ejemplos prácticos
-└── README.md                     # Este archivo
-```
-
-## 🔧 Clases Base Disponibles
-
-### BaseGateway<T, ID>
-
-```java
-// En domain/model/gateways/
-public interface ProductGateway extends BaseGateway<Product, String> {
-}
-```
-
-Operaciones CRUD automáticas: save, findById, update, deleteById
-
-### BaseUseCase
-
-```java
-// En domain/usecase/
-@Service
-public class CreateProductUseCase extends BaseUseCase {
-    public Mono<Product> execute(Product product) {
-        validateNotNull(product, "Product cannot be null");
-        // Lógica de negocio
-    }
-}
-```
-
-### BaseHandler
-
-```java
-// En infrastructure/entry-points/reactive-web/
-@Component
-public class ProductHandler extends BaseHandler {
-    public Mono<ServerResponse> create(ServerRequest request) {
-        return request.bodyToMono(Product.class)
-            .flatMap(p -> createUseCase.execute(p))
-            .flatMap(this::handleCreated);
-    }
-}
-```
-
-## 📖 Ejemplos de Uso
-
-Para ejemplos completos paso a paso, consulta [EJEMPLOS.md](EJEMPLOS.md):
-
-1. Crear una entidad (modelo)
-2. Crear un gateway (interfaz de repositorio)
-3. Crear documentos MongoDB
-4. Crear mappers
-5. Implementar gateways
-6. Crear casos de uso
-7. Crear handlers (endpoints)
-8. Configurar rutas
-
-## ⚙️ Configuración
-
-### application.properties
-
-```properties
-spring.application.name=proyecto-base
-server.port=8081
-spring.data.mongodb.uri=mongodb://localhost:27017/proyecto-base
-logging.level.org.springframework.data.mongodb=DEBUG
-```
-
-### gradle.properties
-
-```properties
-package=co.com.store                # Cambiar a tu paquete
-reactive=true                      # Habilitar WebFlux
-lombok=true                        # Incluir Lombok
-org.gradle.parallel=true           # Compilación paralela
-```
-
-## 🔄 Arquitectura de Capas
-
-```
-HTTP Request → Handler → UseCase → Gateway → Repository → MongoDB
-     ↓            ↓         ↓         ↓         ↓          ↓
-  Entrada    Valida      Negocios   Contrato   Datos    Persistencia
-   (API)    Entrada                  (I)      (I)
-```
-
-- **Handler**: Recibe HTTP, deserializa, delega
-- **UseCase**: Lógica de negocio, validaciones
-- **Gateway**: Interfaz de persistencia (contrato)
-- **Repository**: Implementación real (MongoDB)
-- **Mapper**: Conversión entre capas
-
-## 📦 Tecnologías Principales
-
-- **Spring Boot 3.x** - Framework principal
-- **Spring WebFlux** - API reactiva
-- **Spring Data MongoDB Reactive** - Base de datos reactiva
-- **Project Reactor** - Programación reactiva (Mono/Flux)
-- **Lombok** - Generación automática de código
-- **Gradle 8.0+** - Build automation
-- **Java 17+** - Runtime
-
-## 🛠️ Flujo de Desarrollo
-
-1. **Definir Modelos** en `domain/model/`
-2. **Crear Gateways** en `domain/model/gateways/`
-3. **Implementar MongoDB** en `infrastructure/driven-adapters/mongo-repository/`
-4. **Crear Casos de Uso** en `domain/usecase/`
-5. **Exposer API** en `infrastructure/entry-points/reactive-web/`
-
-## 🐛 Solución de Problemas
-
-| Problema                              | Solución                                     |
-| ------------------------------------- | -------------------------------------------- |
-| "package co.com.store does not exist" | Cambiar paquete correctamente (ver SETUP.md) |
-| MongoDB no conecta                    | Verificar que MongoDB esté ejecutándose      |
-| Gradle wrapper error                  | `gradle wrapper --gradle-version=8.2.1`      |
-| Build fail con Lombok                 | Asegurar `lombok=true` en gradle.properties  |
-
-## 💡 Buenas Prácticas
-
-✅ **Usa:**
-
-- Extender BaseGateway, BaseUseCase, BaseHandler
-- Tipos reactivos (Mono/Flux)
-- Validaciones en casos de uso
-- Mappers para conversión entre capas
-- Inyección de dependencias
-
-❌ **Evita:**
-
-- Lógica de negocio en handlers
-- Exponer documentos MongoDB directamente
-- I/O bloqueante en reactivo
-- Acceso directo a repositorios desde handlers
-
-## 📄 Información
-
-**Última actualización:** Febrero 2026
-**Versión:** 1.0 Base
+Está construido utilizando los estándares más altos de la industria del software: **Arquitectura Limpia (Hexagonal)** y **Programación Reactiva**, lo que significa que es capaz de manejar miles de peticiones simultáneas sin bloquear el servidor.
 
 ---
 
-**📖 Para más información:**
+## 📋 ¿Qué hace esta API?
 
-- [SETUP.md](SETUP.md) - Guía de configuración detallada
-- [EJEMPLOS.md](EJEMPLOS.md) - Ejemplos de código completo
+Esta API permite administrar un catálogo comercial con las siguientes características:
+- **Categorías:** Crear y listar agrupaciones (ej. Electrónica, Hogar).
+- **Tiendas:** Administrar sucursales comerciales.
+- **Productos:** Crear productos vinculados inteligentemente a una Tienda y a una Categoría.
+- **Búsqueda Avanzada:** Filtrar productos en tiempo real por nombre, por tienda o por categoría.
 
-**🚀 ¡Listo para empezar!** Sigue los pasos en "Pasos Iniciales" arriba.
+Todo esto respondiendo a la velocidad de la luz gracias a su naturaleza asíncrona.
 
-## Clases Base Disponibles
+---
 
-- **BaseGateway<T, ID>** - Interface para repositorios
-- **BaseUseCase** - Clase base para casos de uso
-- **BaseHandler** - Clase base para handlers HTTP
+## 🛠️ Tecnologías Utilizadas
 
-## Stack Tecnológico
+Este proyecto utiliza un stack tecnológico moderno y robusto:
 
-- Java 17+
-- Spring Boot 3.x
-- Spring WebFlux (Reactivo)
-- Spring Data MongoDB Reactivo
-- Project Lombok
-- Gradle
+- **Java 17:** Lenguaje de programación principal (Versión LTS estable).
+- **Spring Boot 3.x:** Framework para simplificar la configuración del servidor.
+- **Spring WebFlux:** Motor de programación reactiva (operaciones no bloqueantes usando `Mono` y `Flux`).
+- **MongoDB Reactivo:** Base de datos NoSQL ultra rápida y flexible.
+- **Gradle 8.0+:** Herramienta de automatización de compilación estructurada en múltiples módulos.
+- **Lombok:** Librería para reducir código repetitivo (getters, setters, constructores).
 
-## Documentación
+---
 
-Ver [SETUP.md](SETUP.md) para guía completa de configuración y desarrollo.
+## 🚀 Inicio Rápido (Cómo ejecutar el proyecto)
+
+Si es tu primera vez abriendo este proyecto, sigue estos sencillos pasos para verlo funcionar en tu máquina local.
+
+### 1. Requisitos Previos
+Asegúrate de tener instalado en tu computadora:
+- Java 17 o superior.
+- Una base de datos **MongoDB** corriendo localmente en el puerto por defecto (`localhost:27017`).
+
+### 2. Compilar el Proyecto
+Abre tu terminal en la raíz del proyecto y ejecuta el siguiente comando para descargar las dependencias y compilar el código:
+
+**En Windows:**
+```cmd
+.\gradlew clean build
+```
+
+**En Mac/Linux:**
+
+
+```cmd
+./gradlew clean build
+```
+*(Nota: El primer build puede tardar un poco mientras descarga las librerías necesarias).*
+
+**3. Encender el Servidor**
+
+Una vez compilado exitosamente, levanta la aplicación con este comando:
+
+**En Windows:**
+
+```cmd
+.\gradlew bootRun
+```
+
+**En Mac/Linux:**
+
+```cmd
+./gradlew bootRun
+```
+
+¡Listo! Tu API estará corriendo en http://localhost:8081.
+
+**🗺️ Entendiendo la Arquitectura (Clean Architecture)**
+
+Este proyecto no mezcla todo el código en un solo lugar. Está dividido en **capas (módulos)** para que sea fácil de mantener y escalar:
+
+1. **domain/model (El Corazón):** Aquí viven nuestras entidades puras de Java (Product, Store, Category). No saben nada de bases de datos ni de internet.
+1. **domain/usecase (Las Reglas):** Aquí están las reglas del negocio. Validan que los precios no sean negativos y aseguran que los productos se guarden con las tiendas y categorías correctas.
+1. **infrastructure/driven-adapters (Conexión a BD):** Aquí le enseñamos a la aplicación cómo guardar los datos específicamente en MongoDB.
+1. **infrastructure/entry-points (Las Puertas de Entrada):** Aquí están los *Routers* y *Handlers* que exponen nuestras URLs (/apistore/v1/...) al mundo exterior.
+1. **applications/app-service (El Ensamblador):** El punto de arranque que une todas las capas anteriores y enciende Spring Boot.
+
+**📍 Endpoints Principales (Rutas)**
+
+Todas las rutas de negocio están prefijadas con /apistore/v1/. Aquí tienes algunos ejemplos que puedes probar en Postman:
+
+- **Prueba de vida:** GET http://localhost:8081/health
+- **Categorías:** GET / POST / PUT / DELETE a /apistore/v1/categories
+- **Tiendas:** GET / POST / PUT / DELETE a /apistore/v1/stores
+- **Productos:** GET / POST / PUT / DELETE a /apistore/v1/products
+
+**Ejemplos de Filtros Reactivos:**
+
+- Buscar producto por nombre: GET /apistore/v1/products?name=laptop
+- Filtrar por tienda: GET /apistore/v1/products?storeId=ID\_DE\_LA\_TIENDA
+- Filtrar por categoría: GET /apistore/v1/products?categoryId=ID\_DE\_LA\_CATEGORIA
+
+**🐛 Solución de Problemas Comunes**
+
+|**Problema**|**Solución**|
+| :- | :- |
+|**Error conectando a MongoDB**|Verifica que tu servicio de MongoDB esté encendido y usando el puerto 27017.|
+|**CommandNotFoundException (gradlew)**|Estás intentando usar gradlew sin el prefijo. Usa .\gradlew en Windows o ./gradlew en Linux/Mac.|
+|**Error de versión de Java**|Verifica que la variable de entorno JAVA\_HOME apunte a tu instalación de Java 17.|
+
+*Desarrollado aplicando los principios de la Arquitectura Hexagonal y Programación Reactiva.*
+
