@@ -54,7 +54,7 @@ public class ProductHandler extends BaseHandler {
         return request.bodyToMono(Product.class)
                 .flatMap(productUseCase::createProduct)
                 .flatMap(this::handleCreated)
-                .onErrorResume(e -> handleBadRequest(e.getMessage())); // Mostrará el error si la tienda no existe
+                .onErrorResume(e -> handleBadRequest(e.getMessage()));
     }
 
     public Mono<ServerResponse> update(ServerRequest request) {

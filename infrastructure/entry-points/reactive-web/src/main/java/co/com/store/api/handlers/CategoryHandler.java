@@ -20,7 +20,7 @@ public class CategoryHandler extends BaseHandler {
     public Mono<ServerResponse> getAll(ServerRequest request) {
         return categoryUseCase.getAllCategories()
                 .collectList()
-                .flatMap(this::handleSuccess) // <-- Usamos handleSuccess
+                .flatMap(this::handleSuccess)
                 .onErrorResume(this::handleInternalError);
     }
 
@@ -28,7 +28,7 @@ public class CategoryHandler extends BaseHandler {
         String id = request.pathVariable("id");
         return categoryUseCase.getCategoryById(id)
                 .flatMap(this::handleSuccess)
-                .onErrorResume(e -> handleBadRequest(e.getMessage())); // <-- Pasamos el String del error
+                .onErrorResume(e -> handleBadRequest(e.getMessage()));
     }
 
     public Mono<ServerResponse> create(ServerRequest request) {
@@ -49,7 +49,7 @@ public class CategoryHandler extends BaseHandler {
     public Mono<ServerResponse> delete(ServerRequest request) {
         String id = request.pathVariable("id");
         return categoryUseCase.deleteCategory(id)
-                .then(handleNoContent()) // <-- No necesita this:: porque no recibe parámetros
+                .then(handleNoContent())
                 .onErrorResume(e -> handleBadRequest(e.getMessage()));
     }
 }
